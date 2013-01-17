@@ -2,7 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 
-define('LESSY_VERSION', '0.6');
+define('LESSY_VERSION', '0.6.1');
 
 class LessyServiceProvider extends ServiceProvider {
 

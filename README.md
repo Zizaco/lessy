@@ -45,14 +45,17 @@ In your `config/app.php` add `'Zizaco\Lessy\LessyServiceProvider'` to the end of
 
 ### Configuration (Optional)
 
-By default, Lessy will consider the directory `app/less` as the input and `public/assets/css` for the output. But if you wish to change these values ​​simply define `lessy.origin` and `lessy.destination` keys in `config/app.php`. Example:
+By default, Lessy will consider the directory `app/less` as the input and `public/assets/css` for the output. But if you wish to change these values ​​simply publish the package config files:
 
-    // config/app.php
+    $ php artisan config:publish zizaco/lessy
 
-    'lessy' => array(
-        'origin'        => __DIR__.'/../mylessdir',
-        'destination'   => __DIR__.'/../../public/mycssfiles'
-    ),
+and define the `origin` and `destination` keys in `config/packages/zizaco/lessy/config.php`. Example:
+
+    // config/packages/zizaco/lessy/config.php
+
+    // Paths should be relative to app folder.
+    'origin'        => 'mylessfiles',
+    'destination'   => '../public/mycss',
 
 The automatic **compilation does not occur when the application is in 'production' environment**. So make sure to [change the application environment](http://four.laravel.com/docs/configuration#environment-configuration "Environment Configuration") to `'local'` or something that is not `'production'` if you need Lessy to automagically compile your LESS files.
 
