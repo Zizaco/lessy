@@ -38,19 +38,19 @@ class Lessy
      */
     public function compileLessFiles( $verbose = false )
     {
-        $root = __DIR__.'/../../../../../../';
+        $root = $this->_app['path'];
 
         $origin = $this->_app['config']->get('app.lessy.origin');
         $destination = $this->_app['config']->get('app.lessy.destination');
 
         if( empty($origin) )
-            $origin = $root.'app/less/';
+            $origin = $root.'/less/';
 
         if( empty($destination) )
         {
-            $destination = $root.'public/assets/css/';
+            $destination = $root.'../public/assets/css';
 
-            if ( !(is_dir($root.'public') and is_dir($root.'public/assets') and is_dir($destination.'/')) )
+            if ( !(is_dir($root.'../public') and is_dir($root.'../public/assets') and is_dir($destination.'/')) )
             {
                 mkdir($destination.'/', 0775, true);
             }
