@@ -38,7 +38,7 @@ class Lessy
      */
     public function compileLessFiles( $verbose = false )
     {
-        $root = $this->_app['path'];
+        $root = $this->_app['path'].'/';
 
         $origin = $this->_app['config']->get('app.lessy.origin');
         $destination = $this->_app['config']->get('app.lessy.destination');
@@ -48,11 +48,11 @@ class Lessy
 
         if( empty($destination) )
         {
-            $destination = $root.'../public/assets/css';
+            $destination = $root.'../public/assets/css/';
 
-            if ( !(is_dir($root.'../public') and is_dir($root.'../public/assets') and is_dir($destination.'/')) )
+            if ( !(is_dir($root.'../public') and is_dir($root.'../public/assets') and is_dir($destination)) )
             {
-                mkdir($destination.'/', 0775, true);
+                mkdir($destination, 0775, true);
             }
         }
 
