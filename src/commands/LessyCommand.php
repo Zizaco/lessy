@@ -48,7 +48,7 @@ class LessyCommand extends Command {
     public function fire()
     {
         $lessy = new Lessy($this->app);
-        $this->line("\n<comment>Lessy ".LESSY_VERSION."</comment> <info>Compilling files...</info>");
+        $this->line("\n<comment>Lessy ".LESSY_VERSION."</comment> <info>Compiling files...</info>");
         $lessy->compileLessFiles( true );
         $this->info("Done\n");
     }
