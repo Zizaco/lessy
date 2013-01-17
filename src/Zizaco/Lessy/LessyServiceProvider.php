@@ -2,7 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 
-define('LESSY_VERSION', '0.5');
+define('LESSY_VERSION', '0.6');
 
 class LessyServiceProvider extends ServiceProvider {
 
@@ -38,6 +38,8 @@ class LessyServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->app['config']->package('zizaco/lessy', __DIR__.'/../../config');
+
 		$this->app['command.lessy.compile'] = $this->app->share(function($app)
 		{
 			return new LessyCommand($app);

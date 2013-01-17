@@ -33,39 +33,43 @@ class Lessy
     /**
      * Compiles the less files
      * 
-     * @param  Illuminate\Foundation\Application  $app
+     * @param  bool  $verbose
      * @return void
      */
     public function compileLessFiles( $verbose = false )
     {
-        $root = $this->_app['path'].'/';
-
-        $origin = $this->_app['config']->get('app.lessy.origin');
-        $destination = $this->_app['config']->get('app.lessy.destination');
+        $root =        $this->_app['path'].'/';
+        $origin =      $this->_app['config']->get('lessy::origin');
+        $destination = $this->_app['config']->get('lessy::destination');
 
         if( empty($origin) )
-            $origin = $root.'/less/';
+            $origin = 'less';
 
         if( empty($destination) )
-        {
-            $destination = $root.'../public/assets/css/';
+            $destination = '../public/assets/css';
 
-            if ( !(is_dir($root.'../public') and is_dir($root.'../public/assets') and is_dir($destination)) )
-            {
-                mkdir($destination, 0775, true);
-            }
+        if( $verbose )
+        {
+            print_r( 'LESS files: <app>/'.$origin."\n" );
+            print_r( 'Output to:  <app>/'.$destination."\n\n" );
         }
 
-        $tree = $this->compileTree( $origin, $destination, '', $verbose );
+        $origin =      $root.$origin;
+        $destination = $root.$destination;
+
+        if ( ! is_dir($destination) )
+            mkdir($destination, 0775, true);
+
+        $tree = $this->compileTree( $origin.'/', $destination.'/', '', $verbose );
     }
 
     /**
      * Recursive file compilation
      * 
-     * @param  lessc $less
-     * @param  string $origin
-     * @param  string $destiny
-     * @param  string $offset
+     * @param  string  $origin
+     * @param  string  $destiny
+     * @param  string  $offset
+     * @param  bool  $verbose
      * @return array
      */
     private function compileTree( $origin, $destiny, $offset = '', $verbose = false )
