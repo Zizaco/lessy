@@ -1,0 +1,26 @@
+{
+    "name": "zizaco/lessy",
+    "description": "Lessy is a simple and lean less compiler for Laravel",
+    "keywords": ["laravel","illuminate","less","scss"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zizaco Zizuini",
+            "email": "zizaco@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x",
+        "leafo/lessphp": "v0.3.8"
+    },
+    "autoload": {
+        "classmap": [
+            "src/commands"
+        ],
+        "psr-0": {
+            "Zizaco\\Lessy": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
