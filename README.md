@@ -67,7 +67,7 @@ If for some reason you need to force the compilation of LESS files (ex: in produ
 
 ## License
 
-Confide is free software distributed under the terms of the MIT license
+Lessy is a free software distributed under the terms of the MIT license
 
 ## Aditional information
 
