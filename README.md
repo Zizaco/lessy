@@ -2,6 +2,8 @@
 
 ![Confide Poster](https://dl.dropbox.com/u/12506137/libs_bundles/lessy.png)
 
+[![ProjectStatus](http://stillmaintained.com/Zizaco/lessy.png)](http://stillmaintained.com/Zizaco/lessy)
+
 Lessy is a simple and lean LESS compiler for Laravel.
 
 In summary, Lessy will compile the files contained in `app/less` to the `public/asset/css` directory respecting any existing directory structure. For example: if you have `app/less/admin/panel.less` lessy will compile it to `public/asset/css/admin/panel.css` when the application receives a request. You can change the input and output directories trough configuration (see below).
