@@ -2,7 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 
-define('LESSY_VERSION', '0.6.1');
+define('LESSY_VERSION', '0.6.2');
 
 class LessyServiceProvider extends ServiceProvider {
 
@@ -23,7 +23,7 @@ class LessyServiceProvider extends ServiceProvider {
 		/**
 		 * Lessy will NOT run in production environment
 		 */
-		if( $this->app->__get('env') != 'production' )
+		if( $this->app->__get('env') != 'production'  || $this->app['config']->get('lessy::force_compile') )
 		{
 			$this->package('zizaco/lessy');
 			$lessy = new Lessy($this->app);
