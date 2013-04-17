@@ -35,7 +35,7 @@ class Lessy
         $this->_app['config']->set('lessy::origin', $origin);
         $this->_app['config']->set('lessy::destination', $destination);
 
-        $this->compileLessFiles( true );
+        $this->compileLessFiles();
     }
 
     /**
