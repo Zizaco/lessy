@@ -30,6 +30,14 @@ class Lessy
         $this->lessc = new lessc;
     }
 
+    public function compileTree($origin, $destination)
+    {
+        $this->_app['config']->set('lessy::origin', $origin);
+        $this->_app['config']->set('lessy::destination', $destination);
+
+        $this->compileLessFiles( true );
+    }
+
     /**
      * Compiles the less files
      * 
@@ -60,7 +68,7 @@ class Lessy
         if ( ! is_dir($destination) )
             mkdir($destination, 0775, true);
 
-        $tree = $this->compileTree( $origin.'/', $destination.'/', '', $verbose );
+        $tree = $this->compileRecursive( $origin.'/', $destination.'/', '', $verbose );
     }
 
     /**
@@ -72,7 +80,7 @@ class Lessy
      * @param  bool  $verbose
      * @return array
      */
-    private function compileTree( $origin, $destiny, $offset = '', $verbose = false )
+    protected function compileRecursive( $origin, $destiny, $offset = '', $verbose = false )
     {
         $tree = array();
 
@@ -93,7 +101,7 @@ class Lessy
                 }
 
                 // Recursive call
-                $tree[$filename] = $this->compileTree( $origin, $destiny, $offset.$filename.'/', $verbose );
+                $tree[$filename] = $this->compileRecursive( $origin, $destiny, $offset.$filename.'/', $verbose );
             }
             elseif ( is_file( $origin.$offset.$filename ))
             {
@@ -111,6 +119,24 @@ class Lessy
                         $origin.$offset.$filename,
                         $destiny.$offset.substr($filename,0,strrpos($filename,'.',-1)).'.css'
                     );
+                }
+                else
+                {
+                    $in = $origin.$offset.$filename;
+                    $out = $destiny.$offset.$filename;
+
+                    if( $verbose )
+                    {
+                        print_r( $offset.$filename."\n" );
+                    }
+
+                    // Copy any assets that the css/less may use
+                    if (!is_file($out) || filemtime($in) > filemtime($out)) {
+                        copy(
+                            $in,
+                            $out
+                        );
+                    }
                 }
             }
         }

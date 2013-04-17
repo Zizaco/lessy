@@ -38,6 +38,11 @@ class LessyServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->app->bind('lessy', function($app)
+		{
+		    return new Lessy($app);
+		});
+
 		$this->app['config']->package('zizaco/lessy', __DIR__.'/../../config');
 
 		$this->app['command.lessy.compile'] = $this->app->share(function($app)
