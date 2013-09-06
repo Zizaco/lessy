@@ -162,7 +162,7 @@ class Lessy
         if( empty($destination) )
             $destination = '../public/assets/css';
 
-        $origin .= '/'.$filename
+        $origin .= '/'.$filename;
 
         if( $verbose )
         {
