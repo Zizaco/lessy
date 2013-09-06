@@ -27,7 +27,12 @@ class LessyServiceProvider extends ServiceProvider {
 		{
 			$this->package('zizaco/lessy');
 			$lessy = new Lessy($this->app);
-			$lessy->compileLessFiles();
+
+			// Compiles less file if manual_compile_only is not enabled
+			if (! $this->app['config']->get('lessy::manual_compile_only'))
+			{
+				$lessy->compileLessFiles();
+			}
 		}
 	}
 

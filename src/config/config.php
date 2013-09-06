@@ -13,7 +13,7 @@ return array(
     */
 
     'origin'        => 'less',
-    
+
     'destination'   => '../public/assets/css',
 
 
@@ -32,5 +32,18 @@ return array(
     */
 
     'force_compile' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Manual Compilation
+    |--------------------------------------------------------------------------
+    |
+    | This option will disable the autocompilation. So in order to actually
+    | compile the less files you will have to call the compilation commands in
+    | the before filter.
+    |
+    */
+
+    'manual_compile_only' => false,
 
 );

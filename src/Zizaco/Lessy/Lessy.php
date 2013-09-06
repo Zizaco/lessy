@@ -7,21 +7,21 @@ class Lessy
 
     /**
      * Less compiler
-     * 
+     *
      * @var lessc
      */
     public $lessc;
 
     /**
      * Laravel application
-     * 
+     *
      * @var Illuminate\Foundation\Application
      */
     public $_app;
 
     /**
      * Create a new Lessy instance.
-     * 
+     *
      * @param  Illuminate\Foundation\Application  $app
      */
     public function __construct($app)
@@ -40,7 +40,7 @@ class Lessy
 
     /**
      * Compiles the less files
-     * 
+     *
      * @param  bool  $verbose
      * @return void
      */
@@ -73,7 +73,7 @@ class Lessy
 
     /**
      * Recursive file compilation
-     * 
+     *
      * @param  string  $origin
      * @param  string  $destiny
      * @param  string  $offset
@@ -142,6 +142,45 @@ class Lessy
         }
 
         return $tree;
+    }
+
+    /**
+     * Compiles one less file
+     *
+     * @param  bool  $verbose
+     * @return void
+     */
+    public function compileSingleFile( $filename, $verbose = false )
+    {
+        $root =        $this->_app['path'].'/';
+        $origin =      $this->_app['config']->get('lessy::origin');
+        $destination = $this->_app['config']->get('lessy::destination');
+
+        if( empty($origin) )
+            $origin = 'less';
+
+        if( empty($destination) )
+            $destination = '../public/assets/css';
+
+        $origin .= '/'.$filename
+
+        if( $verbose )
+        {
+            print_r( 'LESS file: <app>/'.$origin."\n" );
+            print_r( 'Output to:  <app>/'.$destination."\n\n" );
+        }
+
+        $origin =      $root.$origin;
+        $destination = $root.$destination;
+
+        if ( ! is_dir($destination) )
+            mkdir($destination, 0775, true);
+
+        // Compile file
+        $this->lessc->checkedCompile(
+            $origin,
+            $destiny.'/'.substr($filename,0,strrpos($filename,'.',-1)).'.css'
+        );
     }
 
 }
