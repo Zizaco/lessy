@@ -179,7 +179,7 @@ class Lessy
         // Compile file
         $this->lessc->checkedCompile(
             $origin,
-            $destiny.'/'.substr($filename,0,strrpos($filename,'.',-1)).'.css'
+            $destination.'/'.substr($filename,0,strrpos($filename,'.',-1)).'.css'
         );
     }
 
