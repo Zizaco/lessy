@@ -32,10 +32,7 @@ class Lessy
 
     public function compileTree($origin, $destination)
     {
-        $this->_app['config']->set('lessy::origin', $origin);
-        $this->_app['config']->set('lessy::destination', $destination);
-
-        $this->compileLessFiles();
+        $this->compileLessFiles(false, $origin, $destination);
     }
 
     /**
@@ -44,11 +41,11 @@ class Lessy
      * @param  bool  $verbose
      * @return void
      */
-    public function compileLessFiles( $verbose = false )
+    public function compileLessFiles( $verbose = false, $origin = null, $destination = null )
     {
         $root =        $this->_app['path'].'/';
-        $origin =      $this->_app['config']->get('lessy::origin');
-        $destination = $this->_app['config']->get('lessy::destination');
+        $origin =      $origin ?: $this->_app['config']->get('lessy::origin');
+        $destination = $destination ?: $this->_app['config']->get('lessy::destination');
 
         if( empty($origin) )
             $origin = 'less';
@@ -177,7 +174,7 @@ class Lessy
             mkdir($destination, 0775, true);
 
         // Compile file
-        $this->lessc->checkedCompile(
+        $this->lessc->compileFile(
             $origin,
             $destination.'/'.substr($filename,0,strrpos($filename,'.',-1)).'.css'
         );
