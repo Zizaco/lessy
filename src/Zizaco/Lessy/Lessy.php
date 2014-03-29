@@ -179,5 +179,37 @@ class Lessy
             $destination.'/'.substr($filename,0,strrpos($filename,'.',-1)).'.css'
         );
     }
+    
+    /**
+     * Minify all css files
+     *
+     * @param  string  $destination
+     * @return void
+     */
+    public function minify($destination = null) {
+    	print_r("Minifying...\n");
+    	$buffer = '';
+    	 
+    	$destination = $destination ?: $this->_app['config']->get('lessy::destination');
+    	$root = $this->_app['path'].'/';
+    	 
+    	if( empty($destination) )
+    		$destination = '../public/assets/css';
+    	 
+    	$destination = $root.$destination;
+    	 
+    	foreach (\File::allFiles($destination) as $File) {
+    		$buffer .= \File::get($File->getPathname());
+    		\File::delete($File->getPathname());
+    	}
+    	 
+    	$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
+    	$buffer = str_replace(array("\r\n","\r","\n","\t",'  ','    ','     '), '', $buffer);
+    	$buffer = preg_replace(array('(( )+{)','({( )+)'), '{', $buffer);
+    	$buffer = preg_replace(array('(( )+})','(}( )+)','(;( )*})'), '}', $buffer);
+    	$buffer = preg_replace(array('(;( )+)','(( )+;)'), ';', $buffer);
+    	 
+    	\File::put($destination.'/styles.min.css', $buffer);
+    }
 
 }

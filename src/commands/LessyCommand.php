@@ -50,6 +50,11 @@ class LessyCommand extends Command {
         $lessy = new Lessy($this->app);
         $this->line("\n<comment>Lessy ".LESSY_VERSION."</comment> <info>Compiling files...</info>");
         $lessy->compileLessFiles( true );
+        
+        if ($this->app['config']->get ( 'lessy::auto_minify' )) {
+        	$lessy->minify();
+        }
+        
         $this->info("Done\n");
     }
 
